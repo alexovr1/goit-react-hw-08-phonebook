@@ -5,21 +5,21 @@ import { addContact } from '../../redux/operations';
 import { selectIsContact } from 'redux/selectors';
 import { notifySuccess, notifyWarning } from 'helpers/notifications';
 
-export const Form = () => {
+export const ContactForm = () => {
     const dispatch = useDispatch();
 
     const checkContacts = useSelector(selectIsContact);
-    const handleSubmit = ({ name, phone }, action) => {
+    const handleSubmit = ({ name, number }, action) => {
         if (!checkContacts(name)) {
             return notifyWarning(`${name} is already is contacts`)
                 ;
         }
-        dispatch(addContact({ name, phone }));
+        dispatch(addContact({ name, number }));
         notifySuccess(`${name} added to phonebook`)
         action.resetForm();
     };
     return (
-        <Formik initialValues={{ name: '', phone: '' }} onSubmit={handleSubmit}>
+        <Formik initialValues={{ name: '', number: '' }} onSubmit={handleSubmit}>
             {({ values, handleChange }) => (
                 <FormStyles>
                     <Label display='block'>
@@ -38,11 +38,11 @@ export const Form = () => {
                         Number
                         <input
                             type="tel"
-                            name="phone"
+                            name="number"
                             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                             required
-                            value={values.phone}
+                            value={values.number}
                             onChange={handleChange}
                         />
                     </Label>

@@ -15,7 +15,6 @@ const contactsSlice = createSlice({
         builder
             .addCase(getContacts.fulfilled, (state, action) => {
                 state.items = action.payload;
-                // console.log(state.items);
             })
             .addCase(deleteContact.fulfilled, (state, action) => {
                 const index = state.items.findIndex(item => item.id === action.payload.id);

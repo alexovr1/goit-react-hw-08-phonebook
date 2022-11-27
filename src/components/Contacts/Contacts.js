@@ -30,9 +30,9 @@ export const ContactList = () => {
                 {error && <h3>{error}</h3>}
 
                 {contacts.length !== 0
-                    ? contacts.map(({ id, name, phone }) => (
+                    ? contacts.map(({ id, name, number }) => (
                         <Contact key={id}>
-                            {name}: {phone}
+                            {name}: {number}
                             <DeleteBtn type="button" onClick={() => dispatch(deleteContact(id))}>
                                 Delete
                             </DeleteBtn>
