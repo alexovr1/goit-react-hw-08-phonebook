@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[266],{1266:function(e,t,a){a.r(t);var o=a(8627),r=a(184);t.default=function(){var e=(0,o.a)().user;return(0,r.jsxs)("h1",{children:["Welcome ",e.name?"".concat(e.name," to the best phone book app"):"new user to the best phone book app. Please register"]})}}}]);
-//# sourceMappingURL=266.94964d38.chunk.js.map
