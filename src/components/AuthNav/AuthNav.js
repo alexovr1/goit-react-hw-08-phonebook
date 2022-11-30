@@ -1,25 +1,32 @@
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import css from './AuthNav.module.css';
 
 export const AuthMenu = () => {
     return (
+
         <ul>
-            <li>
-                <NavLink
-                    className={css.link}
-                    to="/register"
-                >
-                    Register
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                    className={css.link}
-                    to="/login"
-                >
-                    Log In
-                </NavLink>
-            </li>
+            <Flex align="center" justify="flex-start">
+                <Box mr={4}>
+                    <li>
+                        <NavLink
+                            to="/register"
+                        >
+                            <Button colorScheme='linkedin' variant='solid'>
+                                Register
+                            </Button>
+                        </NavLink>
+                    </li>
+                </Box>
+                <li>
+                    <NavLink
+                        to="/login"
+                    >
+                        <Button colorScheme='linkedin' variant='outline'>Log In</Button>
+
+                    </NavLink>
+                </li>
+            </Flex>
         </ul>
+
     );
 };

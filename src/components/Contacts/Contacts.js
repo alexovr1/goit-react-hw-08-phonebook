@@ -1,10 +1,9 @@
 import { deleteContact } from '../../redux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../redux/filterSlice';
-import { Label } from 'components/Form/Form.styled';
-import { FindContact, DeleteBtn, Contact } from './Contacts.styled';
 import { selectError, selectFilteredContacts, selectIsLoading } from 'redux/selectors';
 import { loader } from 'helpers/loader';
+import { Box, Button, FormLabel, Input, List, ListItem } from '@chakra-ui/react';
 
 export const ContactList = () => {
     const dispatch = useDispatch();
@@ -16,30 +15,31 @@ export const ContactList = () => {
     };
 
     return (
-        <FindContact>
-            <Label>
+        <Box display='block'>
+            <FormLabel mb={6}>
                 Find contacts by name
-                <input
+                <Input
+                    placeholder='Enter find name'
                     type="text"
                     name="filter"
                     onChange={handleFilterChange}
                 />
-            </Label>
-            <ul>
+            </FormLabel>
+            <List spacing={4}>
                 {isLoading && loader()}
                 {error && <h3>{error}</h3>}
 
                 {contacts.length !== 0
                     ? contacts.map(({ id, name, number }) => (
-                        <Contact key={id}>
+                        <ListItem key={id}>
                             {name}: {number}
-                            <DeleteBtn type="button" onClick={() => dispatch(deleteContact(id))}>
+                            <Button colorScheme='linkedin' variant='solid' size='xs' ml={2} type="button" onClick={() => dispatch(deleteContact(id))}>
                                 Delete
-                            </DeleteBtn>
-                        </Contact>
+                            </Button>
+                        </ListItem>
                     ))
                     : ''}
-            </ul>
-        </FindContact>
+            </List>
+        </Box>
     );
 }
