@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { notifySuccess, notifyWarning } from 'helpers/notifications';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -24,8 +25,10 @@ export const register = createAsyncThunk(
             const res = await axios.post('/users/signup', credentials);
             // After successful registration, add the token to the HTTP header
             setAuthHeader(res.data.token);
+            notifySuccess('Registration success')
             return res.data;
         } catch (error) {
+            notifyWarning('Registration error, please check value or the user already exists')
             return thunkAPI.rejectWithValue(error.message);
         }
     }
@@ -42,9 +45,12 @@ export const logIn = createAsyncThunk(
             const res = await axios.post('/users/login', credentials);
             // After successful login, add the token to the HTTP header
             setAuthHeader(res.data.token);
+            notifySuccess('Login sucsess');
             return res.data;
         } catch (error) {
+            notifyWarning('Login error, please check your e-mail or password')
             return thunkAPI.rejectWithValue(error.message);
+
         }
     }
 );
@@ -58,8 +64,11 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
         await axios.post('/users/logout');
         // After a successful logout, remove the token from the HTTP header
         clearAuthHeader();
+        notifySuccess('Logout success')
     } catch (error) {
+        notifyWarning('Logout error')
         return thunkAPI.rejectWithValue(error.message);
+
     }
 });
 
@@ -83,8 +92,10 @@ export const refreshUser = createAsyncThunk(
             // If there is a token, add it to the HTTP header and perform the request
             setAuthHeader(persistedToken);
             const res = await axios.get('/users/current');
+            notifySuccess('Login success')
             return res.data;
         } catch (error) {
+            notifyWarning('Login error')
             return thunkAPI.rejectWithValue(error.message);
         }
     }
